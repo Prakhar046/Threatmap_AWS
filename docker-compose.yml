@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+      - celery_single_tasks
+      - celery_concurrent_tasks
+      - celery_incident_tasks
+      - celery_beat
+
+  db:
+    image: mongo:latest
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celery_single_tasks:
+    build:
+      context: .
+    command: >
+      celery -A threatmap worker --loglevel=info --pool=threads --concurrency=4
+      -Q single_tasks --without-gossip --without-mingle --without-heartbeat
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - .:/app
+
+  celery_incident_tasks:
+    build:
+      context: .
+    command: >
+      celery -A threatmap worker --loglevel=info --pool=threads --concurrency=2
+      -Q incident_tasks --without-gossip --without-mingle --without-heartbeat
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - .:/app
+
+  celery_concurrent_tasks:
+    build:
+      context: .
+    command: >
+     celery -A threatmap worker --loglevel=info --pool=threads --concurrency=10
+      -Q concurrent_tasks --without-gossip --without-mingle --without-heartbeat
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - .:/app
+    
+  celery_beat:
+    build:
+      context: .
+    command: celery -A threatmap beat --loglevel=info
+    depends_on:
+      - redis
+      - db
+    volumes:
+      - .:/app
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo_express
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      ME_CONFIG_MONGODB_URL: "mongodb://db:27017/"
+    restart: always  # Ensures Mongo Express retries on failure
+
+volumes:
+  mongo_data:

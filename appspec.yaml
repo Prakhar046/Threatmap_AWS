@@ -1,0 +1,26 @@
+version: 0.0
+Resources: 
+  - TargetService:
+      Type: AWS::ECS:Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:ap-south-1:881490102041:task-definition/ThreatmapBackendTaskdefinition:1"
+        LoadBalancerInfo:
+          ContainerName: "ThreatmapBackendContainer"
+          ContainerPort: 8000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

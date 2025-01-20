@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Threat Data</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Threat Data from MongoDB</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Origin Country Alpha2</th>
+                <th>Origin Country Name</th>
+                <th>Value</th>
+                <th>Rank</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for threat in threats %}
+                <tr>
+                    <td>{{ threat.origin_country_alpha2 }}</td>
+                    <td>{{ threat.origin_country_name }}</td>
+                    <td>{{ threat.value }}</td>
+                    <td>{{ threat.rank }}</td>
+                    <td>{{ threat.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
