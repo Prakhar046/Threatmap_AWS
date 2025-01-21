@@ -45,6 +45,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker images...
       - docker-compose build
+      - docker images # List Docker images to verify they were created
       - docker tag backend-web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-web
       - docker tag backend-celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-celery_beat
       - docker tag backend-celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-celery_single_tasks
@@ -66,7 +67,8 @@ phases:
       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:redis
       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:mongo-express
       - printf '[{"name":"ThreatmapBackendContainer","imageUri":"%s"}]' 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-web > imagedefinitions.json
-
+      - cat imagedefinitions.json # Verify the contents of the imagedefinitions.json file
+      
 artifacts:
   files:
     - imagedefinitions.json
