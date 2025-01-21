@@ -32,55 +32,6 @@
 
 
 
-# version: 0.2
-
-# phases:
-#   pre_build:
-#     commands:
-#       - echo Logging in to Amazon ECR...
-#       - aws --version
-#       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 881490102041.dkr.ecr.ap-south-1.amazonaws.com
-#   build:
-#     commands:
-#       - echo Build started on `date`
-#       - echo Building the Docker images...
-#       - docker-compose build
-#       - docker images # List Docker images to verify they were created
-#       - docker tag backend-web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag backend-celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag backend-celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag backend-celery_concurrent_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag backend-celery_incident_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag mongo:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag redis:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker tag mongo-express:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#   post_build:
-#     commands:
-#       - echo Build completed on `date`
-#       - echo Pushing the Docker images...
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-#       - printf '[{"name":"ThreatmapBackendContainer","imageUri":"%s"}]' 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest > imagedefinitions.json
-#       - cat imagedefinitions.json # Verify the contents of the imagedefinitions.json file
-
-# artifacts:
-#   files:
-#     - imagedefinitions.json
-
-
-
-
-
-
-
-
-
 version: 0.2
 
 phases:
@@ -89,42 +40,91 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 881490102041.dkr.ecr.ap-south-1.amazonaws.com
-
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker images...
       - docker-compose build
-      - echo Listing Docker images...
-      - docker images # Verify built images exist
-      - echo Tagging Docker images for ECR...
-      - docker tag backend-web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-web:latest
-      - docker tag backend-celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-beat:latest
-      - docker tag backend-celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-single:latest
-      - docker tag backend-celery_concurrent_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-concurrent:latest
-      - docker tag backend-celery_incident_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-incident:latest
-      - docker tag mongo:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo:latest
-      - docker tag redis:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-redis:latest
-      - docker tag mongo-express:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo-express:latest
-
+      - docker images # List Docker images to verify they were created
+      - docker tag src-web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src-celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src-celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src-celery_concurrent_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src-celery_incident_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag mongo:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag redis:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag mongo-express:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing Docker images to ECR...
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-web:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-beat:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-single:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-concurrent:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-incident:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-redis:latest
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo-express:latest
-      - echo Creating imagedefinitions.json...
-      - printf '[{"name":"backend-web","imageUri":"%s"},{"name":"celery-beat","imageUri":"%s"}]' \
-          881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-web:latest \
-          881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-beat:latest > imagedefinitions.json
-      - cat imagedefinitions.json # Verify the file
+      - echo Pushing the Docker images...
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - printf '[{"name":"ThreatmapBackendContainer","imageUri":"%s"}]' 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest > imagedefinitions.json
+      - cat imagedefinitions.json # Verify the contents of the imagedefinitions.json file
 
 artifacts:
   files:
     - imagedefinitions.json
+
+
+
+
+
+
+
+
+
+# version: 0.2
+
+# phases:
+#   pre_build:
+#     commands:
+#       - echo Logging in to Amazon ECR...
+#       - aws --version
+#       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 881490102041.dkr.ecr.ap-south-1.amazonaws.com
+
+#   build:
+#     commands:
+#       - echo Build started on `date`
+#       - echo Building the Docker images...
+#       - docker-compose build
+#       - echo Listing Docker images...
+#       - docker images # Verify built images exist
+#       - echo Tagging Docker images for ECR...
+#       - docker tag backend-web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-web:latest
+#       - docker tag backend-celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-beat:latest
+#       - docker tag backend-celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-single:latest
+#       - docker tag backend-celery_concurrent_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-concurrent:latest
+#       - docker tag backend-celery_incident_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-incident:latest
+#       - docker tag mongo:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo:latest
+#       - docker tag redis:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-redis:latest
+#       - docker tag mongo-express:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo-express:latest
+
+#   post_build:
+#     commands:
+#       - echo Build completed on `date`
+#       - echo Pushing Docker images to ECR...
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-web:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-beat:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-single:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-concurrent:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-incident:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-redis:latest
+#       - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-mongo-express:latest
+#       - echo Creating imagedefinitions.json...
+#       - printf '[{"name":"backend-web","imageUri":"%s"},{"name":"celery-beat","imageUri":"%s"}]' \
+#           881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-web:latest \
+#           881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-celery-beat:latest > imagedefinitions.json
+#       - cat imagedefinitions.json # Verify the file
+
+# artifacts:
+#   files:
+#     - imagedefinitions.json
