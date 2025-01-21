@@ -59,15 +59,15 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-web
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-celery_beat
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-celery_single_tasks
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-celery_concurrent_tasks
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-celery_incident_tasks
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:mongo
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:redis
-      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:mongo-express
-      - printf '[{"name":"ThreatmapBackendContainer","imageUri":"%s"}]' 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:backend-web > imagedefinitions.json
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker push 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - printf '[{"name":"ThreatmapBackendContainer","imageUri":"%s"}]' 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest > imagedefinitions.json
 
 artifacts:
   files:
