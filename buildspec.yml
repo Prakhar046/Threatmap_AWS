@@ -46,11 +46,11 @@ phases:
       - echo Building the Docker images...
       - docker-compose build
       - docker images # List Docker images to verify they were created
-      - docker tag src-web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-      - docker tag src-celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-      - docker tag src-celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-      - docker tag src-celery_concurrent_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
-      - docker tag src-celery_incident_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src_web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src_celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src_celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src_celery_concurrent_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
+      - docker tag src_celery_incident_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
       - docker tag mongo:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
       - docker tag redis:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
       - docker tag mongo-express:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
