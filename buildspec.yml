@@ -46,6 +46,9 @@ phases:
       - echo Building the Docker images...
       - docker-compose build
       - docker images # List Docker images to verify they were created
+      - docker pull mongo:latest # Pull MongoDB before tagging
+      - docker pull redis:latest # Pull MongoDB before tagging
+      - docker pull mongo-express:latest # Pull MongoDB before tagging
       - docker tag src_web:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
       - docker tag src_celery_beat:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
       - docker tag src_celery_single_tasks:latest 881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest
