@@ -1,18 +1,29 @@
+# version: 0.0
+# Resources: 
+#   - TargetService:
+#       Type: AWS::ECS:Service
+#       Properties:
+#         TaskDefinition: "arn:aws:ecs:ap-south-1:881490102041:task-definition/ThreatmapBackendTaskdefinition:1"
+#         LoadBalancerInfo:
+#           ContainerName: "ThreatmapBackendContainer"
+#           ContainerPort: 8000
+          
+
+
+
+
+
 version: 0.0
 Resources: 
   - TargetService:
       Type: AWS::ECS:Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:ap-south-1:881490102041:task-definition/ThreatmapBackendTaskdefinition:1"
+        TaskDefinition: "arn:aws:ecs:ap-south-1:881490102041:task-definition/ThreatmapBackendTaskdefinition:3"
         LoadBalancerInfo:
-          ContainerName: "ThreatmapBackendContainer"
-          ContainerPort: 8000
-
-
-
-
-
-
+          - ContainerName: "WebContainer"  # Name of the web container
+            ContainerPort: 8000  # Port exposed by the web container
+          - ContainerName: "MongoExpressContainer"  # Name of the mongo-express container
+            ContainerPort: 8081  # Port exposed by the mongo-express container
 
 
 

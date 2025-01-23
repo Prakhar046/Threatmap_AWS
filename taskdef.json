@@ -1,13 +1,13 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:881490102041:task-definition/ThreatmapBackendTaskdefinition:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:881490102041:task-definition/ThreatmapBackendTaskdefinition:3",
     "containerDefinitions": [
         {
-            "name": "ThreatmapBackendContainer",
-            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:latest",
+            "name": "WebContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:web",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "threatmapbackendcontainer-8000-tcp",
+                    "name": "webcontainer-8000-tcp",
                     "containerPort": 8000,
                     "hostPort": 8000,
                     "protocol": "tcp",
@@ -19,7 +19,198 @@
             "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "CeleryBeatContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:celery-beat",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "CelerySingleTasksContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:celery-single-tasks",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "CeleryConcurrentTasksContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:celery-concurrent-tasks",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "CeleryIncidentTasksContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:celery-incident-tasks",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "MongoContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:mongo",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "mongocontainer-27017-tcp",
+                    "containerPort": 27017,
+                    "hostPort": 27017,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "RedisContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:redis",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "rediscontainer-6379-tcp",
+                    "containerPort": 6379,
+                    "hostPort": 6379,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/ThreatmapBackendTaskdefinition",
+                    "mode": "non-blocking",
+                    "awslogs-create-group": "true",
+                    "max-buffer-size": "25m",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        },
+        {
+            "name": "MongoExpressContainer",
+            "image": "881490102041.dkr.ecr.ap-south-1.amazonaws.com/threatmap-backend-repo:mongo-express",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "mongoexpresscontainer-8081-tcp",
+                    "containerPort": 8081,
+                    "hostPort": 8081,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
@@ -38,7 +229,7 @@
     "family": "ThreatmapBackendTaskdefinition",
     "executionRoleArn": "arn:aws:iam::881490102041:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 3,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -84,7 +275,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2025-01-16T10:26:36.572Z",
+    "registeredAt": "2025-01-23T06:26:04.623Z",
     "registeredBy": "arn:aws:iam::881490102041:user/Prakhar",
     "enableFaultInjection": false,
     "tags": []
